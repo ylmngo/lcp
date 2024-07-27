@@ -7,6 +7,7 @@ if (found.error) {
 }
 
 export default { 
-    port: parseInt(process.env.PORT === undefined ? '3000' : process.env.PORT!), 
+    host: process.env.HOST ?? "localhost", 
+    port: process.env.PORT ?? "3000", 
     redisUrl: process.env.REDIS_URL === undefined ? 'redis://localhost:6379' : process.env.REDIS_URL!, 
 }

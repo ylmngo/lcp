@@ -1,4 +1,12 @@
-b8056365-fb4a-489c-9854-5b1826d7bcd7
-
-1e90ecc6-183d-4ede-863b-fbf5edb5db32
-71ad4e68-1083-4318-8944-bf035515a13c
+Improve API Responses
+Handle file uploads, JSON content in copy endpoint 
+Handle parsing of different formats in content 
+Add Security Keys for joining rooms 
+Handle Logging Errors 
+Middleware to handle, log errors and measure process times 
+Add Rate Limiting 
+Add Network Compression for large messages 
+Encrypt messages that are being transferred over the wire 
+Rewrite the routes code (Services folder?)
+Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)
+Use AWS (How?)
