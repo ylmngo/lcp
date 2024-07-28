@@ -1,3 +1,5 @@
+Create migrations for messages, room
+Add stuff from previous lcp 
 Improve API Responses
 Handle file uploads, JSON content in copy endpoint 
 Handle parsing of different formats in content 
