@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         return res.status(200).json(response)
     } catch (e) { 
         // TODO: Add a new error type 
-        console.error(e)
+        console.log(e)
         return res.status(400).json({
             message: "unable to register user"
         })
@@ -35,31 +35,31 @@ router.post('/register', async (req, res) => {
 
 })
 
-// /**
-//  * the user sends user credentials (email, password)
-//  * find the user by email 
-//  * verify the password given by the user and the one in the database matches 
-//  * return the userId, email as response 
-//  */
-// router.post('/login', async (req, res) => { 
-//     // TODO: Add a middleware the extracts the credentails validation
-//     let credentials = req.body
-//     if (credentials === undefined || credentials === null) { 
-//         return res.status(400).json({
-//             message: "invalid user credentials."
-//         })
-//     }
+/**
+ * the user sends user credentials (email, password)
+ * find the user by email 
+ * verify the password given by the user and the one in the database matches 
+ * return the userId, email as response 
+ */
+router.post('/login', async (req, res) => { 
+    // TODO: Add a middleware the extracts the credentails validation
+    let credentials = req.body
+    if (credentials === undefined || credentials === null) { 
+        return res.status(400).json({
+            message: "invalid user credentials."
+        })
+    }
 
-//     try { 
-//         const response = await authService.login(credentials.email, credentials.password)
-//         return res.status(200).json(response) 
-//     } catch (e) { 
-//         // TODO: Add a new error type 
-//         console.error(e) 
-//         return res.status(400).json({
-//             message: "unable to register user",  
-//         })
-//     }
-// })
+    try { 
+        const response = await authService.login(credentials.email, credentials.password)
+        return res.status(200).json(response) 
+    } catch (e) { 
+        // TODO: Add a new error type 
+        console.log(e) 
+        return res.status(400).json({
+            message: "unable to register user",  
+        })
+    }
+})
 
 export default router 

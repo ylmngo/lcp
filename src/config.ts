@@ -14,5 +14,6 @@ export default {
     dbHost: process.env.DB_HOST ?? "localhost", 
     dbPort: process.env.DB_PORT ?? "5432", 
     dbUser: process.env.DB_USER ?? "postgres", 
+    jwtSecret: process.env.JWT_SECRET ?? "", 
     redisUrl: process.env.REDIS_URL === undefined ? 'redis://localhost:6379' : process.env.REDIS_URL!, 
 }
