@@ -1,3 +1,4 @@
+Add better tests 
 Add remote for lcp 
 Create migrations for messages, room
 Add stuff from previous lcp 
