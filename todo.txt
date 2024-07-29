@@ -1,16 +1,30 @@
-Add better tests 
+Alter members to be an array of strings (Member Names or Emails) 
 Add remote for lcp 
-Create migrations for messages, room
-Add stuff from previous lcp 
-Improve API Responses
+Create migrations for messages
 Handle file uploads, JSON content in copy endpoint 
 Handle parsing of different formats in content 
-Add Security Keys for joining rooms 
-Handle Logging Errors 
 Middleware to handle, log errors and measure process times 
 Add Rate Limiting 
 Add Network Compression for large messages 
 Encrypt messages that are being transferred over the wire 
-Rewrite the routes code (Services folder?)
-Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)
 Use AWS (How?)
+Dockerize the application
+Handle Logging Errors 
+Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)
+
+endpoints: 
+	POST create REQUIRES Authorization Header: Bearer token, Key? 
+	SERVICE: Creates a new Redis Pub Sub With the a new UUID (UUID Of the Room). Add the Owner as a listener to the Pub Sub. Include the owner as a member. 
+		 Add (UUID of Room, Key Hash, timestamp at which room was created, Owner ID, Owner Email, Members (Array of User Ids)) to Room Table of Postgres 
+	RETURNS JSON (UUID of Room, Key Hash, timestamp at which room was created, Owner ID, Owner Email, Members)
+	IDEAS: Add PERMISSIONS (Type of content allowed to be posted to room: Strings, Files, JSON Objects etc..) 
+
+	POST join REQUIRES Authorization Header: Bearer Token, UUID of Room, Key? 
+	SERVICE: Add User Id
+	RETURNS JSON (UUID of Room, Owner ID, Owner Email) 
+	IDEAS: RETURN The permissions of the room as well 
+
+	POST copy  
+	GET  paste 
+
+	

@@ -1,9 +1,10 @@
 import express from 'express'
-import { migrate } from "drizzle-orm/node-postgres/migrator"
 import config from './config'
 import auth from './api/auth'
 import room from './api/room'
 import db from './db'
+import { migrate } from "drizzle-orm/node-postgres/migrator"
+import { pub, sub } from "./redis"
 
 async function run() { 
     const app = express() 
@@ -11,6 +12,9 @@ async function run() {
     app.use('/v1/room', room)
 
     try {
+        await pub.connect() 
+        await sub.connect() 
+        
         await migrate(db, { migrationsFolder: "./migrations"})
         
         app.listen(parseInt(config.port), config.host, () => { 

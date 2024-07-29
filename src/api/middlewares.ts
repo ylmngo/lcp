@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from '../config'
 import db from '../db'
-import { User, UserModel } from '../models'
-import { users } from '../schemas'
+import { RoomModel, User, UserModel } from '../models'
+import { rooms, users } from '../schemas'
 import { and, eq } from 'drizzle-orm'
 
 export interface AuthRequest extends Request { 
@@ -62,13 +62,12 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
 
         console.log(claims) 
         
-        const result = await db.select({id: users.id, username: users.username, email: users.email}).from(users).where(and(eq(users.id, claims._id), eq(users.email, claims._email))); 
-
-        if (result.length === 0) { 
+        const user = await db.select({id: users.id, username: users.username, email: users.email}).from(users).where(and(eq(users.id, claims._id), eq(users.email, claims._email)));
+        if (user.length === 0) { 
             throw new Error("invalid token: no user with such claims")
         }
-        
-        (req as RoomRequest).user = result[0]; 
+
+        (req as RoomRequest).user = user[0];
     } catch (e) { 
         if (e instanceof jwt.TokenExpiredError) { 
             return res.status(403).json({
