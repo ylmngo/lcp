@@ -60,8 +60,6 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
         const token = header.replace("Bearer ", "")
         const claims = jwt.verify(token, config.jwtSecret) as JwtPayload
 
-        console.log(claims) 
-        
         const user = await db.select({id: users.id, username: users.username, email: users.email}).from(users).where(and(eq(users.id, claims._id), eq(users.email, claims._email)));
         if (user.length === 0) { 
             throw new Error("invalid token: no user with such claims")

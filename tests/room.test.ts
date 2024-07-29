@@ -35,7 +35,6 @@ describe('testing /room endpoints', () => {
             expect(response.statusCode).toBe(200)
 
             const resp = JSON.parse(response.text)
-            console.log(resp) 
 
             expect(resp.userId).toBe(jwtPayload._id)
             expect(resp.email).toBe(jwtPayload._email) 
@@ -46,21 +45,23 @@ describe('testing /room endpoints', () => {
         }
     })
 
-    // test('testing /join endpoint', async () => { 
-    //     try { 
-    //         const resp = JSON.parse(response.text) 
+    test('testing /join endpoint', async () => { 
+        try { 
+            const resp = JSON.parse(response.text) 
             
-    //         response = await request(app).post(roomUrl + '/join').set("Authorization", "Bearer " + joinerToken).send({
-    //             roomId: resp.id,  
-    //             key: "room_key"
-    //         })
+            response = await request(app).post(roomUrl + '/join').set("Authorization", "Bearer " + joinerToken).send({
+                roomId: resp.id,  
+                key: "room_key"
+            })
 
-    //         expect(response.statusCode).toBe(200) 
-    //         console.log(response.text) 
-    //     } catch (e) { 
-    //         console.error(e) 
-    //     }
-    // })
+            const jsonResponse = JSON.parse(response.text) 
+            
+            expect(response.statusCode).toBe(200) 
+            expect(jsonResponse.members.length).toBe(resp.members.length + 1) 
+        } catch (e) { 
+            console.error(e) 
+        }
+    })
     
     afterAll(async () => { 
         const jsonResponse = JSON.parse(response.text) 
