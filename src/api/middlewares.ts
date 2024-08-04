@@ -16,6 +16,17 @@ export interface RoomRequest extends Request {
     user: UserModel
 }
 
+export async function processTime(req: Request, res: Response, next: NextFunction) { 
+    const start = Date.now() 
+
+    res.on('finish', () => { 
+        const duration = Date.now() - start 
+        console.log(`${req.method} ${req.originalUrl} FINISHED in ${duration}ms`)
+    })
+    
+    next() 
+}
+
 export function verifyCredentials(req: Request, res: Response, next: NextFunction) { 
     let credentials = req.body 
     if (!credentials) { 

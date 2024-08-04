@@ -3,7 +3,7 @@ import app from './app'
 import room from '../src/api/room'
 import jwt from 'jsonwebtoken'
 import config from '../src/config'
-import db from '../src/db'
+import db, { client } from '../src/db'
 import { rooms } from '../src/schemas'
 import { eq } from 'drizzle-orm'
 

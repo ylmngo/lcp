@@ -20,6 +20,6 @@ function openDB(cfg: any) {
     return client
 } 
 
-const client = openDB(config)
+export const client = openDB(config)
 
 export default drizzle(client) 

@@ -3,11 +3,13 @@ import config from './config'
 import auth from './api/auth'
 import room from './api/room'
 import db from './db'
+import { processTime } from './api/middlewares'
 import { migrate } from "drizzle-orm/node-postgres/migrator"
 import { pub, sub } from "./redis"
 
 async function run() { 
     const app = express() 
+    app.use(processTime)
     app.use('/v1/auth', auth)
     app.use('/v1/room', room)
 

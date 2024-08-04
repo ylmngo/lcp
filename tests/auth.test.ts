@@ -1,7 +1,7 @@
 import request from 'supertest'
 import app from './app'
 import auth from '../src/api/auth'
-import db from '../src/db'
+import db, { client } from '../src/db'
 import jwt, {JwtPayload} from 'jsonwebtoken'
 import { users } from '../src/schemas'
 import { eq } from 'drizzle-orm'
