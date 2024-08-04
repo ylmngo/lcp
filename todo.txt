@@ -11,7 +11,7 @@ Dockerize the application
 Test Edge Cases as well 
 Use AWS (How?)
 Handle Logging Errors 
-Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)
+Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)	 
 
 endpoints: 
 	POST create REQUIRES Authorization Header: Bearer token, Key? 
