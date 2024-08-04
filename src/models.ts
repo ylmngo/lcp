@@ -11,7 +11,7 @@ export type UserModel = {
 export type RoomModel = { 
     id: string;
     createdAt: Date | null;
-    members: number[];
+    members: string[];
     userId: number | null;
     email: string;
 }

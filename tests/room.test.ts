@@ -39,7 +39,7 @@ describe('testing /room endpoints', () => {
             expect(resp.userId).toBe(jwtPayload._id)
             expect(resp.email).toBe(jwtPayload._email) 
             expect(resp.members.length).toBe(1) 
-            expect(resp.members[0]).toBe(jwtPayload._id)
+            expect(resp.members[0]).toBe(jwtPayload._email)
         } catch (e) { 
             console.log(e) 
         }

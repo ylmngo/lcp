@@ -3,7 +3,7 @@ Add remote for lcp
 Create migrations for messages
 Handle file uploads, JSON content in copy endpoint 
 Handle parsing of different formats in content 
-Middleware to handle, log errors and measure process times 
+Middleware to handle, log errors
 Add Rate Limiting 
 Add Network Compression for large messages 
 Encrypt messages that are being transferred over the wire 
@@ -25,7 +25,13 @@ endpoints:
 	RETURNS JSON (UUID of Room, Owner ID, Owner Email) 
 	IDEAS: RETURN The permissions of the room as well 
 
-	POST copy  
-	GET  paste 
+	POST copy REQUIRES Header: Bearer Token, UUID of Room, Message (bytes), Key? 
+	SERVICE: Add Message to Redis Pub Sub (Message: JSON (UserId: int, Fwds: number[], Content: bytes, Format: default txt, Size: uint))  
+	RETURNS: JSON (Message Sequence Id, UserId: int) 
+	IDEAS:  Fwds (number[])  (default all), Middleware to verify Room identity and whether the user is a member of the room, Create Migration for messages 
+	
+	GET paste REQUIRES Header: Bearer Token, UUID of Room 
+	SERVICE: Returns the message at the top of the current Redis stack 
+	RETURNS: JSON Message 
 
 	

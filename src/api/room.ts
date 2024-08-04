@@ -1,12 +1,8 @@
 import express from 'express'
-import crypto from 'node:crypto'
-import db from '../db'
-import argon2 from 'argon2'
+import  jwt from 'jsonwebtoken' 
 import roomService from '../service/room'
 import { authenticateJWT, RoomRequest } from './middlewares'
-import { rooms } from '../schemas'
 import { Room, RoomModel, UserModel } from '../models'
-import { eq } from 'drizzle-orm'
 
 const router = express.Router() 
 

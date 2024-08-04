@@ -13,6 +13,6 @@ export const rooms = pgTable('rooms', {
     key: text('key').default(""), 
     email: text('email').notNull(), 
     userId: integer('user_id').references(() => users.id), 
-    members: integer('members').array().notNull(), 
+    members: text('members').array().notNull(), 
     createdAt: timestamp('created_at').defaultNow(),
 })

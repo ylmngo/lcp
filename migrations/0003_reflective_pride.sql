@@ -1,0 +1,1 @@
+ALTER TABLE "rooms" ALTER COLUMN "members" SET DATA TYPE text[];

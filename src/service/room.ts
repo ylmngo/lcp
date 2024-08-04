@@ -19,7 +19,7 @@ async function createRoom(user: UserModel, key: string | undefined) {
         const r: Room = { 
             id: roomUUID, 
             email: user.email, 
-            members: [user.id,], 
+            members: [user.email,], 
             userId: user.id, 
             key: keyHash, 
         }
@@ -72,7 +72,7 @@ async function joinRoom(roomId: string, u: UserModel, key: string | undefined) {
         })
 
         // append the user Id to members of the room 
-        resp[0].members.push(u.id)
+        resp[0].members.push(u.email)
         
         // update the room to include the new member 
         const room = await db.update(rooms).set({ members: resp[0].members}).returning({id: rooms.id, email: rooms.email, userId: rooms.userId, members: rooms.members, createdAt: rooms.createdAt})
