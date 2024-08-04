@@ -7,8 +7,9 @@ Middleware to handle, log errors and measure process times
 Add Rate Limiting 
 Add Network Compression for large messages 
 Encrypt messages that are being transferred over the wire 
-Use AWS (How?)
 Dockerize the application
+Test Edge Cases as well 
+Use AWS (How?)
 Handle Logging Errors 
 Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)
 

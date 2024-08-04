@@ -6,7 +6,6 @@ export type Room = typeof rooms.$inferInsert
 export type UserModel = { 
     id: number, 
     email: string, 
-    username: string, 
 }
 
 export type RoomModel = { 
