@@ -15,3 +15,11 @@ export type RoomModel = {
     userId: number | null;
     email: string;
 }
+
+export type MessageModel = { 
+    id: number; 
+    room: string; 
+    userId: number; 
+    content: string; 
+    recipients: string[]; 
+}

@@ -29,6 +29,11 @@ async function createRoom(user: UserModel, key: string | undefined) {
             throw new Error("unable to return values after insertion")
         }
 
+        await sub.subscribe(roomUUID, async (msg) => { 
+            console.log("After copy")
+            await pub.lPush(user.id.toString(), msg)
+        })
+
         return resp[0]
     } catch (e) { 
         throw e 
@@ -43,6 +48,11 @@ async function joinRoom(roomId: string, u: UserModel, key: string | undefined) {
         throw new Error(`no room exists with id: ${rooms.id}`)
     }
 
+    let members = resp[0].members; 
+    if (members.includes(u.email)) {
+        throw new Error(`User already a member of this room: ${u.email}`)
+    }
+    
     if (key === undefined) { 
         key = ""
     }
@@ -72,10 +82,10 @@ async function joinRoom(roomId: string, u: UserModel, key: string | undefined) {
         })
 
         // append the user Id to members of the room 
-        resp[0].members.push(u.email)
+        members.push(u.email)
         
         // update the room to include the new member 
-        const room = await db.update(rooms).set({ members: resp[0].members}).returning({id: rooms.id, email: rooms.email, userId: rooms.userId, members: rooms.members, createdAt: rooms.createdAt})
+        const room = await db.update(rooms).set({ members: members}).returning({id: rooms.id, email: rooms.email, userId: rooms.userId, members: rooms.members, createdAt: rooms.createdAt})
 
         return room[0]
     } catch (e) { 
@@ -83,7 +93,15 @@ async function joinRoom(roomId: string, u: UserModel, key: string | undefined) {
     }
 }
 
+//TODO: use opts { roomId, username, email}
+async function getRoom(id: string): Promise<RoomModel | null> { 
+    const resp = await db.select().from(rooms).where(eq(rooms.id, id))
+    if (resp.length === 0)  return null
+    return resp[0] as RoomModel
+}
+
 export default { 
     createRoom, 
     joinRoom, 
+    getRoom
 }

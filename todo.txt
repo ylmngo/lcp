@@ -8,7 +8,7 @@ Add Rate Limiting
 Add Network Compression for large messages 
 Encrypt messages that are being transferred over the wire 
 Dockerize the application
-Test Edge Cases as well 
+Test Edge Cases as well (Add test to check whether a user is already member of a room while joining a new room)
 Use AWS (How?)
 Handle Logging Errors 
 Create a CLI application to consume the REST API (lcp cpy <content>, lcp pst cmds)	 
@@ -34,4 +34,6 @@ endpoints:
 	SERVICE: Returns the message at the top of the current Redis stack 
 	RETURNS: JSON Message 
 
-	
+ADMIN CREDS: 
+	username: admin, password: admin_password, email: admin_email@gmail.com => room key: password, room id: 1a3d1181-fa9e-489b-a490-5ca9caa31094
+	username: admin_username_2, password: admin_password_2, email: admin_email_2@gmail.com

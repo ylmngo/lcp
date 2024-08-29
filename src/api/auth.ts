@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
         // TODO: Add a new error type 
         console.log(e) 
         return res.status(400).json({
-            message: "unable to register user",  
+            message: "unable to login user",  
         })
     }
 })

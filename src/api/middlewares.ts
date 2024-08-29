@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from '../config'
 import db from '../db'
+import argon2 from 'argon2'
 import { RoomModel, User, UserModel } from '../models'
 import { rooms, users } from '../schemas'
 import { and, eq } from 'drizzle-orm'
@@ -14,6 +15,12 @@ export interface AuthRequest extends Request {
 
 export interface RoomRequest extends Request { 
     user: UserModel
+}
+
+export interface MessageRequest extends Request { 
+    user: UserModel 
+    roomId: string 
+    content: string 
 }
 
 export async function processTime(req: Request, res: Response, next: NextFunction) { 
@@ -71,12 +78,6 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
         const token = header.replace("Bearer ", "")
         const claims = jwt.verify(token, config.jwtSecret) as JwtPayload; 
 
-        // const user = await db.select({id: users.id, username: users.username, email: users.email}).from(users).where(and(eq(users.id, claims._id), eq(users.email, claims._email)));
-        // if (user.length === 0) { 
-        //     throw new Error("invalid token: no user with such claims")
-        // }
-
-        
         const user: UserModel = { 
             id: claims._id, 
             email: claims._email 
@@ -97,3 +98,35 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
 
     next() 
 } 
+
+export async function verifyRoom(req: Request, res: Response, next: NextFunction) { 
+    const u: UserModel = (req as MessageRequest).user 
+    const roomId: string | undefined = req.body.roomId 
+    if (roomId === undefined) { 
+        return res.status(403).json({
+            message: "invalid room id"            
+        })
+    }
+
+    try { 
+        const resp = await db.select({members: rooms.members}).from(rooms).where(eq(rooms.id, roomId))
+        if (resp.length === 0) { 
+            throw new Error("no room with such room id exists")
+        }
+
+        const members: string[] = resp[0].members 
+        console.log(members) 
+
+        if (!members.includes(u.email)) { 
+            throw new Error("user is not a member of this room")
+        }
+    } catch (e: any) { 
+        return res.status(400).json({
+            message: e.message,  
+        })
+    }
+
+    (req as MessageRequest).roomId = roomId; 
+
+    next() 
+}
