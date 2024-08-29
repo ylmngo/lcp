@@ -95,7 +95,7 @@ async function joinRoom(roomId: string, u: UserModel, key: string | undefined) {
 
 //TODO: use opts { roomId, username, email}
 async function getRoom(id: string): Promise<RoomModel | null> { 
-    const resp = await db.select().from(rooms).where(eq(rooms.id, id))
+    const resp = await db.select({id: rooms.id, email: rooms.email, members: rooms.members, createdAt: rooms.createdAt}).from(rooms).where(eq(rooms.id, id))
     if (resp.length === 0)  return null
     return resp[0] as RoomModel
 }
