@@ -21,10 +21,9 @@ async function copyMessage(req: MessageRequest) {
     }
 
     const serializedMessage = JSON.stringify(message)
-    
     await pub.publish(roomId, serializedMessage)
 
-    return serializedMessage
+    return message
 }
 
 async function pasteMessage(req: MessageRequest) { 

@@ -61,7 +61,7 @@ router.get('/get', async (req, res) => {
         if (room === null)  return res.status(400).json({message: "Invalid room id"})
         return res.status(200).json(room)
     } catch (e) { 
-        return res.status(500).send(e)
+        return res.status(500).json(e)
     }
 })
 

@@ -36,4 +36,4 @@ endpoints:
 
 ADMIN CREDS: 
 	username: admin, password: admin_password, email: admin_email@gmail.com => room key: password, room id: 1a3d1181-fa9e-489b-a490-5ca9caa31094
-	username: admin_username_2, password: admin_password_2, email: admin_email_2@gmail.com
+	username: admin_username_2, password: admin_password_2, email: admin_email_2@gmail.com => room key: password, room id: fadbbf1d-94cb-4889-9ceb-9a551a5e1513
